@@ -12,7 +12,7 @@ export const getWeatherTool = {
   definition: {
     title: "Get Weather",
     description: "Fetches the current weather for a given location.",
-    inputSchema: inputSchema.shape,
+    inputSchema,
   },
   handler: async ({ latitude, longitude }: Input) => {
     // Simulate fetching weather data
