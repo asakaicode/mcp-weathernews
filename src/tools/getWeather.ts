@@ -1,15 +1,18 @@
-import { z } from 'zod'
+import { toJSONSchema, z } from 'zod'
 import { WeatherData } from '../models/weather'
+
+const inputZod = z.object({
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+})
 
 export const getWeatherTool: any = {
   name: 'getWeather',
   definition: {
     title: 'Get Weather',
-    description: 'Fetches the current weather for a given location.',
-    inputSchema: {
-      latitude: z.number().min(-90).max(90),
-      longitude: z.number().min(-180).max(180),
-    },
+    description:
+      'Fetches the current weather for a given location using latitude and longitude.',
+    inputSchema: toJSONSchema(inputZod),
   },
   handler: async ({
     latitude,
