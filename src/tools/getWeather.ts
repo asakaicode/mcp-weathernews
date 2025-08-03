@@ -1,9 +1,18 @@
-import { toJSONSchema, z } from 'zod'
+import { z } from 'zod'
+import zodToJsonSchema from 'zod-to-json-schema'
 import { WeatherData } from '../models/weather'
 
 const inputZod = z.object({
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
+  latitude: z
+    .number()
+    .min(-90)
+    .max(90)
+    .describe('The latitude of the location to get the weather for.'),
+  longitude: z
+    .number()
+    .min(-180)
+    .max(180)
+    .describe('The longitude of the location to get the weather for.'),
 })
 
 export const getWeatherTool: any = {
@@ -12,12 +21,11 @@ export const getWeatherTool: any = {
     title: 'Get Weather',
     description:
       'Fetches the current weather for a given location using latitude and longitude.',
-    inputSchema: toJSONSchema(inputZod),
+    inputSchema: zodToJsonSchema(inputZod),
   },
-  handler: async ({
-    latitude,
-    longitude,
-  }: z.infer<typeof getWeatherTool.definition.inputSchema>) => {
+  handler: async (args: unknown) => {
+    const { latitude, longitude } = inputZod.parse(args)
+
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`,
