@@ -1,23 +1,20 @@
-import { type McpTool } from '@modelcontextprotocol/sdk'
-import { z, type ZodRawShape } from 'zod'
+import { z } from 'zod'
 import { WeatherData } from '../models/weather'
 
-const inputSchemaShape: ZodRawShape = {
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
-}
-
-const inputSchema = z.object(inputSchemaShape)
-type Input = z.infer<typeof inputSchema>
-
-export const getWeatherTool: McpTool = {
+export const getWeatherTool: any = {
   name: 'getWeather',
   definition: {
     title: 'Get Weather',
     description: 'Fetches the current weather for a given location.',
-    inputSchema: inputSchemaShape,
+    inputSchema: {
+      latitude: z.number().min(-90).max(90),
+      longitude: z.number().min(-180).max(180),
+    },
   },
-  handler: async ({ latitude, longitude }: Input) => {
+  handler: async ({
+    latitude,
+    longitude,
+  }: z.infer<typeof getWeatherTool.definition.inputSchema>) => {
     try {
       const res = await fetch(
         `https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&appid=${process.env.API_KEY}`,
