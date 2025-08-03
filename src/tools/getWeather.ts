@@ -1,18 +1,21 @@
-import { z } from 'zod'
+import { type McpTool } from '@modelcontextprotocol/sdk'
+import { z, type ZodRawShape } from 'zod'
 import { WeatherData } from '../models/weather'
 
-const inputSchema = z.object({
+const inputSchemaShape: ZodRawShape = {
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
-})
+}
+
+const inputSchema = z.object(inputSchemaShape)
 type Input = z.infer<typeof inputSchema>
 
-export const getWeatherTool = {
+export const getWeatherTool: McpTool = {
   name: 'getWeather',
   definition: {
     title: 'Get Weather',
     description: 'Fetches the current weather for a given location.',
-    inputSchema,
+    inputSchema: inputSchemaShape,
   },
   handler: async ({ latitude, longitude }: Input) => {
     try {
