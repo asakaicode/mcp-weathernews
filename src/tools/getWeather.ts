@@ -1,11 +1,10 @@
 import { z } from 'zod'
+import { WeatherData } from '../models/weather'
 
-const inputSchemaShape = {
+const inputSchema = z.object({
   latitude: z.number().min(-90).max(90),
   longitude: z.number().min(-180).max(180),
-}
-
-const inputSchema = z.object(inputSchemaShape)
+})
 type Input = z.infer<typeof inputSchema>
 
 export const getWeatherTool = {
@@ -13,7 +12,7 @@ export const getWeatherTool = {
   definition: {
     title: 'Get Weather',
     description: 'Fetches the current weather for a given location.',
-    inputSchema: inputSchemaShape,
+    inputSchema,
   },
   handler: async ({ latitude, longitude }: Input) => {
     try {
