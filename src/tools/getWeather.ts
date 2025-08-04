@@ -54,7 +54,6 @@ const getCurrentWeather = (
   // weatherプロパティは配列なので、最初の要素を取得する
   const weatherInfo = current.weather[0]
   const weatherDescription = weatherInfo.description
-  const weatherIcon = weatherInfo.icon
 
   // 3. 気温をケルビンから摂氏に変換
   const tempInCelsius = tempInKelvin - 273.15
