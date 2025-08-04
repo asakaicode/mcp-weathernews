@@ -12,11 +12,11 @@ importers:
         specifier: ^1.17.1
         version: 1.17.1
       zod:
-        specifier: ^4.0.14
-        version: 4.0.14
+        specifier: ^3.25.76
+        version: 3.25.76
       zod-to-json-schema:
         specifier: ^3.24.6
-        version: 3.24.6(zod@4.0.14)
+        version: 3.24.6(zod@3.25.76)
     devDependencies:
       '@types/node':
         specifier: ^24.1.0
@@ -452,9 +452,6 @@ packages:
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
-
-  zod@4.0.14:
-    resolution: {integrity: sha512-nGFJTnJN6cM2v9kXL+SOBq3AtjQby3Mv5ySGFof5UGRHrRioSJ5iG680cYNjE/yWk671nROcpPj4hAS8nyLhSw==}
 
 snapshots:
 
@@ -899,10 +896,4 @@ snapshots:
     dependencies:
       zod: 3.25.76
 
-  zod-to-json-schema@3.24.6(zod@4.0.14):
-    dependencies:
-      zod: 4.0.14
-
   zod@3.25.76: {}
-
-  zod@4.0.14: {}
