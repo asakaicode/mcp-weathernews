@@ -6,28 +6,16 @@ const inputZod = z.object({
   longitude: z.number().min(-180).max(180),
 })
 
-const correctInputSchema = {
-  type: 'object',
-  properties: {
-    latitude: {
-      type: 'number',
-      description: 'The latitude of the location to get the weather for.',
-    },
-    longitude: {
-      type: 'number',
-      description: 'The longitude of the location to get the weather for.',
-    },
-  },
-  required: ['latitude', 'longitude'],
-}
-
 export const getWeatherTool: any = {
   name: 'getWeather',
   definition: {
     title: 'Get Weather',
     description:
       'Fetches the current weather for a given location using latitude and longitude.',
-    inputSchema: correctInputSchema,
+    inputSchema: {
+      latitude: z.number().min(-90).max(90),
+      longitude: z.number().min(-180).max(180),
+    },
   },
   handler: async (args: unknown) => {
     const { latitude, longitude } = inputZod.parse(args)
